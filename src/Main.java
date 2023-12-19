@@ -35,6 +35,11 @@ public class Main {
     private void createAndShowGUI() {
         frame = new JFrame("Library Management System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(420,420);
+        frame.setResizable(true);
+        frame.setVisible(true);
+        ImageIcon image = new ImageIcon("logo.png");
+        frame.setIconImage(image.getImage());
 
         JPanel panel = new JPanel(new BorderLayout());
 
