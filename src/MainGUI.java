@@ -19,27 +19,38 @@ public class MainGUI {
     private JLabel returnResultLabel;
 
     private LibraryManagementSystem libraryManagementSystem;
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             IDandPasswords idandPasswords = new IDandPasswords();
-            LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo() );//MainGUI::new);
+            LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
         });
     }
-
 
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
         frame = new JFrame("Library Management System");
-        JLabel MainPage = new JLabel("Hello");
+
+        try {
+            // Add logo above the login form
+            ImageIcon logoIcon = new ImageIcon("logo.png");
+            Image logoImage = logoIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            ImageIcon scaledLogoIcon = new ImageIcon(logoImage);
+            JLabel logoLabel = new JLabel(scaledLogoIcon);
+            frame.getContentPane().add(logoLabel, BorderLayout.NORTH);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error loading the logo: " + ex.getMessage());
+        }
 
         frame.setBounds(0, 0, 200, 35);
         frame.setFont(new Font(null, Font.PLAIN, 25));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(420, 420);
+        frame.setSize(380, 380);
         frame.setResizable(true);
         frame.setVisible(true);
-        ImageIcon image = new ImageIcon("logo.png");
-        frame.setIconImage(image.getImage());
+
+        // ... (rest of the code)
 
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -123,13 +134,16 @@ public class MainGUI {
             searchResultLabel.setText("Book not found.");
         }
     }
-    private void addBook(){
+
+    private void addBook() {
         String title = addBookTextFied.getText();
         String author = authorTextField.getText();
 
+        // Placeholder for AddBook.main() - Replace with actual implementation
         AddBook book = AddBook.main();
         addBookLabel.setText(book.getTitle() + " Successfully added!");
     }
+
     private void borrowBook() {
         String title = borrowTextField.getText();
         String borrowerName = borrowerNameTextField.getText();
