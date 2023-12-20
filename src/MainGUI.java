@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 public class MainGUI {
     private JFrame frame;
@@ -98,6 +99,19 @@ public class MainGUI {
         returnPanel.add(returnButton);
         returnResultLabel = new JLabel();
         returnPanel.add(returnResultLabel);
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                HashMap<String, String> loginInfoOriginal = null;
+                new LoginPage(loginInfoOriginal);
+            }
+
+        });
+        returnPanel.add(logoutButton);
+        MainPage.add(returnPanel,BorderLayout.NORTH);
+        MainPage.add(returnPanel, BorderLayout.CENTER);
 
         panel.add(searchPanel, BorderLayout.NORTH);
         panel.add(borrowPanel, BorderLayout.CENTER);
