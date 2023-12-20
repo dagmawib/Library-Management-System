@@ -1,40 +1,34 @@
-
-/*
-*
-* here is GUI form of Library Management Form
-*
-*
-*
-* */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.List;
 
 public class MainGUI {
     private JFrame frame;
     private JTextField searchTextField;
     private JLabel searchResultLabel;
     private JTextField borrowTextField;
-    private JTextField borrowerNameTextField; // Added for borrower name
+    private JTextField borrowerNameTextField;
     private JLabel borrowResultLabel;
     private JTextField returnTextField;
-    private JTextField returnerNameTextField; // Added for returner name
+    private JTextField returnerNameTextField;
     private JLabel returnResultLabel;
 
+    private LibraryManagementSystem libraryManagementSystem;
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                // new MainGUI().loginGUI();
-            }
+        SwingUtilities.invokeLater(() -> {
+            IDandPasswords idandPasswords = new IDandPasswords();
+            LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo() );//MainGUI::new);
         });
     }
 
+
     MainGUI(String userID) {
+        libraryManagementSystem = new LibraryManagementSystem();
         frame = new JFrame("Library Management System");
-        JLabel MainPage = new JLabel("Hello!");
+        JLabel MainPage = new JLabel("Hello");
+
         frame.setBounds(0, 0, 200, 35);
         frame.setFont(new Font(null, Font.PLAIN, 25));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,22 +94,17 @@ public class MainGUI {
         returnResultLabel = new JLabel();
         returnPanel.add(returnResultLabel);
 
-        JButton logoutButton = new JButton("Logout");
-        logoutButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                HashMap<String, String> loginInfoOriginal = null;
-                new LoginPage(loginInfoOriginal);
-            }
-
-        });
-        returnPanel.add(logoutButton);
-        MainPage.add(returnPanel,BorderLayout.NORTH);
-        MainPage.add(returnPanel, BorderLayout.CENTER);
-
         panel.add(searchPanel, BorderLayout.NORTH);
         panel.add(borrowPanel, BorderLayout.CENTER);
         panel.add(returnPanel, BorderLayout.SOUTH);
+
+        JButton viewAllBooksButton = new JButton("View All Books");
+        viewAllBooksButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                viewAllBooks();
+            }
+        });
+        panel.add(viewAllBooksButton, BorderLayout.SOUTH);
 
         frame.getContentPane().add(panel);
         frame.pack();
@@ -124,7 +113,6 @@ public class MainGUI {
 
     private void searchBook() {
         String title = searchTextField.getText();
-        LibraryManagementSystem libraryManagementSystem = new LibraryManagementSystem();
         Book book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book != null) {
             searchResultLabel.setText("Book found: " + book.getTitle());
@@ -136,10 +124,9 @@ public class MainGUI {
     private void borrowBook() {
         String title = borrowTextField.getText();
         String borrowerName = borrowerNameTextField.getText();
-        LibraryManagementSystem libraryManagementSystem = new LibraryManagementSystem();
         Book book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book != null) {
-            libraryManagementSystem.borrowBook(book, new Member(borrowerName, ""));
+            libraryManagementSystem.getLibrary().borrowBook(book);
             borrowResultLabel.setText("Book borrowed: " + book.getTitle());
         } else {
             borrowResultLabel.setText("Book not found.");
@@ -149,13 +136,23 @@ public class MainGUI {
     private void returnBook() {
         String title = returnTextField.getText();
         String returnerName = returnerNameTextField.getText();
-        LibraryManagementSystem libraryManagementSystem = new LibraryManagementSystem();
         Book book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book != null) {
-            libraryManagementSystem.returnBook(book, new Member(returnerName, ""));
+            libraryManagementSystem.getLibrary().returnBook(book);
             returnResultLabel.setText("Book returned: " + book.getTitle());
         } else {
             returnResultLabel.setText("Book not found.");
         }
+    }
+
+    private void viewAllBooks() {
+        List<Book> availableBooks = libraryManagementSystem.getLibrary().getAllAvailableBooks();
+
+        StringBuilder message = new StringBuilder("Available Books:\n");
+        for (Book book : availableBooks) {
+            message.append(book.getTitle()).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(frame, message.toString(), "Available Books", JOptionPane.INFORMATION_MESSAGE);
     }
 }
