@@ -8,9 +8,6 @@ public class MainGUI {
     private JFrame frame;
     private JTextField searchTextField;
     private JLabel searchResultLabel;
-    private JTextField addBookTextFied;
-    private JTextField authorTextField;
-    private JLabel addBookLabel;
     private JTextField borrowTextField;
     private JTextField borrowerNameTextField;
     private JLabel borrowResultLabel;
@@ -30,6 +27,7 @@ public class MainGUI {
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
         frame = new JFrame("Library Management System");
+<<<<<<< HEAD
 
         try {
             // Add logo above the login form
@@ -42,21 +40,32 @@ public class MainGUI {
             ex.printStackTrace();
             System.out.println("Error loading the logo: " + ex.getMessage());
         }
+=======
+>>>>>>> dfa4424aafffa1a2b12919d503764b976fec3d2e
 
-        frame.setBounds(0, 0, 200, 35);
-        frame.setFont(new Font(null, Font.PLAIN, 25));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(380, 380);
         frame.setResizable(true);
         frame.setVisible(true);
 
+<<<<<<< HEAD
         // ... (rest of the code)
+=======
+        // Set the background color for the entire GUI
+        frame.getContentPane().setBackground(new Color(0xC4DFDF));
+>>>>>>> dfa4424aafffa1a2b12919d503764b976fec3d2e
 
         JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(0xC4DFDF)); // Set background color
 
         JPanel searchPanel = new JPanel();
-        searchPanel.add(new JLabel("Search Book:"));
-        searchTextField = new JTextField(20);
+        searchPanel.setBackground(new Color(0xC4DFDF)); // Set background color
+        searchPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
+        JLabel searchLabel = new JLabel("Search Book:");
+        searchLabel.setFont(new Font(searchLabel.getFont().getName(), Font.PLAIN, searchLabel.getFont().getSize() * 2)); // Increase font size
+        searchPanel.add(searchLabel);
+        searchTextField = new JTextField(40);
+        searchTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         searchPanel.add(searchTextField);
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(new ActionListener() {
@@ -64,18 +73,26 @@ public class MainGUI {
                 searchBook();
             }
         });
+        searchButton.setBackground(new Color(0xC4DFDF)); // Set background color
         searchPanel.add(searchButton);
         searchResultLabel = new JLabel();
+        searchResultLabel.setBackground(new Color(0xC4DFDF)); // Set background color
         searchPanel.add(searchResultLabel);
 
         JPanel borrowPanel = new JPanel();
-        borrowPanel.add(new JLabel("Borrow Book:"));
-        borrowTextField = new JTextField(20);
+        borrowPanel.setBackground(new Color(0xC4DFDF)); // Set background color
+        borrowPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
+        JLabel borrowLabel = new JLabel("Borrow Book:");
+        borrowLabel.setFont(new Font(borrowLabel.getFont().getName(), Font.PLAIN, borrowLabel.getFont().getSize() * 2)); // Increase font size
+        borrowPanel.add(borrowLabel);
+        borrowTextField = new JTextField(40);
+        borrowTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowTextField);
 
         // Add a label and text field for borrower name
         borrowPanel.add(new JLabel("Borrower Name:"));
-        borrowerNameTextField = new JTextField(20);
+        borrowerNameTextField = new JTextField(40);
+        borrowerNameTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowerNameTextField);
 
         JButton borrowButton = new JButton("Borrow");
@@ -84,18 +101,22 @@ public class MainGUI {
                 borrowBook();
             }
         });
+        borrowButton.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowButton);
         borrowResultLabel = new JLabel();
+        borrowResultLabel.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowResultLabel);
 
         JPanel returnPanel = new JPanel();
+        returnPanel.setBackground(new Color(0xC4DFDF)); // Set background color
+        returnPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
         returnPanel.add(new JLabel("Return Book:"));
-        returnTextField = new JTextField(20);
-        returnPanel.add(returnTextField);
+        returnTextField = new JTextField(40);
 
         // Add a label and text field for returner name
         returnPanel.add(new JLabel("Returner Name:"));
-        returnerNameTextField = new JTextField(20);
+        returnerNameTextField = new JTextField(40);
+        returnerNameTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.add(returnerNameTextField);
 
         JButton returnButton = new JButton("Return");
@@ -104,25 +125,48 @@ public class MainGUI {
                 returnBook();
             }
         });
+        returnButton.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.add(returnButton);
         returnResultLabel = new JLabel();
+        returnResultLabel.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.add(returnResultLabel);
 
         panel.add(searchPanel, BorderLayout.NORTH);
         panel.add(borrowPanel, BorderLayout.CENTER);
         panel.add(returnPanel, BorderLayout.SOUTH);
 
+        // Add a vertical gap between Borrow and View All Books
+        panel.add(createVerticalGap(), BorderLayout.SOUTH);
+
         JButton viewAllBooksButton = new JButton("View All Books");
         viewAllBooksButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 viewAllBooks();
             }
+
+            private void viewAllBooks() {
+            }
         });
+        viewAllBooksButton.setBackground(new Color(0xC4DFDF)); // Set background color
         panel.add(viewAllBooksButton, BorderLayout.SOUTH);
+
+        // Center components when window is maximized
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        frame.add(panel, gbc);
 
         frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private JPanel createVerticalGap() {
+        JPanel gapPanel = new JPanel();
+        gapPanel.setOpaque(false); // Make the panel transparent
+        gapPanel.setPreferredSize(new Dimension(0, 20)); // Set the vertical gap size
+        return gapPanel;
     }
 
     private void searchBook() {
@@ -134,6 +178,7 @@ public class MainGUI {
             searchResultLabel.setText("Book not found.");
         }
     }
+<<<<<<< HEAD
 
     private void addBook() {
         String title = addBookTextFied.getText();
@@ -144,6 +189,9 @@ public class MainGUI {
         addBookLabel.setText(book.getTitle() + " Successfully added!");
     }
 
+=======
+
+>>>>>>> dfa4424aafffa1a2b12919d503764b976fec3d2e
     private void borrowBook() {
         String title = borrowTextField.getText();
         String borrowerName = borrowerNameTextField.getText();
@@ -159,23 +207,6 @@ public class MainGUI {
     private void returnBook() {
         String title = returnTextField.getText();
         String returnerName = returnerNameTextField.getText();
-        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
-        if (book != null) {
-            libraryManagementSystem.getLibrary().returnBook(book);
-            returnResultLabel.setText("Book returned: " + book.getTitle());
-        } else {
-            returnResultLabel.setText("Book not found.");
-        }
-    }
-
-    private void viewAllBooks() {
-        List<AddBook> availableBooks = libraryManagementSystem.getLibrary().getAllAvailableBooks();
-
-        StringBuilder message = new StringBuilder("Available Books:\n");
-        for (AddBook book : availableBooks) {
-            message.append(book.getTitle()).append("\n");
-        }
-
-        JOptionPane.showMessageDialog(frame, message.toString(), "Available Books", JOptionPane.INFORMATION_MESSAGE);
+        AddBook book = libraryManagementSystem.get();
     }
 }

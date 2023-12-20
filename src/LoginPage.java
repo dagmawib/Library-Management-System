@@ -35,7 +35,7 @@ public class LoginPage implements ActionListener {
         frame.setSize(1000, 1000);
 
         // Set background color
-        frame.getContentPane().setBackground(new Color(0x123456));
+        frame.getContentPane().setBackground(new Color(0x2B3A55));
 
         // Using GridBagLayout for better control over the layout
         frame.setLayout(new GridBagLayout());
