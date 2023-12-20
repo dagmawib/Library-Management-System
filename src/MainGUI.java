@@ -8,6 +8,9 @@ public class MainGUI {
     private JFrame frame;
     private JTextField searchTextField;
     private JLabel searchResultLabel;
+    private JTextField addBookTextFied;
+    private JTextField authorTextField;
+    private JLabel addBookLabel;
     private JTextField borrowTextField;
     private JTextField borrowerNameTextField;
     private JLabel borrowResultLabel;
@@ -113,18 +116,24 @@ public class MainGUI {
 
     private void searchBook() {
         String title = searchTextField.getText();
-        Book book = libraryManagementSystem.getLibrary().searchBook(title);
+        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book != null) {
             searchResultLabel.setText("Book found: " + book.getTitle());
         } else {
             searchResultLabel.setText("Book not found.");
         }
     }
+    private void addBook(){
+        String title = addBookTextFied.getText();
+        String author = authorTextField.getText();
 
+        AddBook book = AddBook.main();
+        addBookLabel.setText(book.getTitle() + " Successfully added!");
+    }
     private void borrowBook() {
         String title = borrowTextField.getText();
         String borrowerName = borrowerNameTextField.getText();
-        Book book = libraryManagementSystem.getLibrary().searchBook(title);
+        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book != null) {
             libraryManagementSystem.getLibrary().borrowBook(book);
             borrowResultLabel.setText("Book borrowed: " + book.getTitle());
@@ -136,7 +145,7 @@ public class MainGUI {
     private void returnBook() {
         String title = returnTextField.getText();
         String returnerName = returnerNameTextField.getText();
-        Book book = libraryManagementSystem.getLibrary().searchBook(title);
+        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book != null) {
             libraryManagementSystem.getLibrary().returnBook(book);
             returnResultLabel.setText("Book returned: " + book.getTitle());
@@ -146,10 +155,10 @@ public class MainGUI {
     }
 
     private void viewAllBooks() {
-        List<Book> availableBooks = libraryManagementSystem.getLibrary().getAllAvailableBooks();
+        List<AddBook> availableBooks = libraryManagementSystem.getLibrary().getAllAvailableBooks();
 
         StringBuilder message = new StringBuilder("Available Books:\n");
-        for (Book book : availableBooks) {
+        for (AddBook book : availableBooks) {
             message.append(book.getTitle()).append("\n");
         }
 

@@ -9,7 +9,7 @@ public class LibraryManagementSystem {
         return library;
     }
 
-    public void borrowBook(Book book, Member member) {
+    public void borrowBook(AddBook book, Member member) {
         if (!book.isBorrowed()) {
             book.setBorrowed(true);
             System.out.println("Book \"" + book.getTitle() + "\" is successfully borrowed by " + member.getName() + ".");
@@ -18,7 +18,7 @@ public class LibraryManagementSystem {
         }
     }
 
-    public void returnBook(Book book, Member member) {
+    public void returnBook(AddBook book, Member member) {
         if (book.isBorrowed()) {
             book.setBorrowed(false);
             System.out.println("Book \"" + book.getTitle() + "\" is successfully returned by " + member.getName() + ".");

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Book> books;
+    private List<AddBook> books;
 
     public Library() {
         this.books = new ArrayList<>();
@@ -11,14 +11,19 @@ public class Library {
 
     private void initializeBooks() {
         // Simulate adding books to the library
-        books.add(new Book(1, "Book1", "Author1", false));
-        books.add(new Book(2, "Book2", "Author2", true));
+        books.add(new AddBook("Book1", "Author1"));
+        books.add(new AddBook("Book2", "Author2"));
+        books.add(new AddBook("Book2", "Author2"));
+        books.add(new AddBook("Book2", "Author2"));
+        books.add(new AddBook("Book2", "Author2"));
+        books.add(new AddBook("Book2", "Author2"));
+        books.add(new AddBook("Book2", "Author2"));
         // Add more books as needed
     }
 
-    public Book searchBook(String title) {
+    public AddBook searchBook(String title) {
         // Simulate searching the library for the book
-        for (Book book : books) {
+        for (AddBook book : books) {
             if (book.getTitle().equalsIgnoreCase(title)) {
                 return book;
             }
@@ -26,23 +31,23 @@ public class Library {
         return null;
     }
 
-    public void borrowBook(Book book) {
+    public void borrowBook(AddBook book) {
         // Simulate updating the book's borrowed status
         if (book != null && !book.isBorrowed()) {
             book.setBorrowed(true);
         }
     }
 
-    public void returnBook(Book book) {
+    public void returnBook(AddBook book) {
         // Simulate updating the book's borrowed status
         if (book != null && book.isBorrowed()) {
             book.setBorrowed(false);
         }
     }
 
-    public List<Book> getAllAvailableBooks() {
-        List<Book> availableBooks = new ArrayList<>();
-        for (Book book : books) {
+    public List<AddBook> getAllAvailableBooks() {
+        List<AddBook> availableBooks = new ArrayList<>();
+        for (AddBook book : books) {
             if (!book.isBorrowed()) {
                 availableBooks.add(book);
             }
