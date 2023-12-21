@@ -225,7 +225,7 @@ public class MainGUI {
         String title = returnTextField.getText();
         String returnerName = returnerNameTextField.getText();
         AddBook book = libraryManagementSystem.get();
-        if (book != null) {
+        if (book == null) {
             libraryManagementSystem.getLibrary().returnBook(book);
             returnResultLabel.setText("Book returned: " + title + " by " + returnerName);
         } else {
