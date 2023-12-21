@@ -1,7 +1,6 @@
 import java.sql.*;
 
 public class Database {
-
     public static final String DB_NAME = "Database.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\user\\Downloads\\Library-Management-System-main\\" + DB_NAME;
     public static final String TABLE_BOOKS = "books";
@@ -9,9 +8,8 @@ public class Database {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_AUTHOR = "author";
 
-
     public static void main(String[] args) {
-
+// using   exception handling
         try{
             Connection conn = DriverManager.getConnection(CONNECTION_STRING);
             Statement statement = conn.createStatement();
