@@ -26,4 +26,9 @@ public class LibraryManagementSystem {
             System.out.println("Book \"" + book.getTitle() + "\" is not currently borrowed.");
         }
     }
+
+    public AddBook get() {
+
+        return null;
+    }
 }
