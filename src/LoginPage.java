@@ -1,10 +1,13 @@
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 
 public class LoginPage implements ActionListener {
@@ -42,6 +45,16 @@ public class LoginPage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(900, 800);
+        ImageIcon image = new ImageIcon("logo.jpg");
+        frame.setIconImage(image.getImage());
+
+        ImageIcon icon = new ImageIcon("logo.jpg");
+        JLabel label = new JLabel(icon);
+        frame.add(label, BorderLayout.CENTER);
+
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(20, 20, 20, 20);
 
