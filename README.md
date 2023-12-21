@@ -11,16 +11,20 @@ Search and Cataloging: Search books by title and author.
 
 ## Technologies Used
 Java: Core programming language for the system's implementation.
+
 Object-Oriented Programming: Utilized for designing modular and scalable classes.
+
 File Handling/Database (Optional): Persistence mechanisms for storing book and member data.
 
 ## How to Use
 Setup:
 Clone the repository to your local machine.
+
 Ensure Java Development Kit (JDK) is installed.
 
 Run the Application:
 Compile the Java files using a Java compiler (javac).
+
 Run the main Java file (java Main) to start the system.
 
 ## Usage:
