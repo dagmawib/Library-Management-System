@@ -27,29 +27,19 @@ public class MainGUI {
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
         frame = new JFrame("Library Management System");
-
-
         try {
             // Add logo above the login form
             ImageIcon logoIcon = new ImageIcon("logo.png");
             Image logoImage = logoIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            ImageIcon scaledLogoIcon = new ImageIcon(logoImage);
-            JLabel logoLabel = new JLabel(scaledLogoIcon);
-            frame.getContentPane().add(logoLabel, BorderLayout.NORTH);
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error loading the logo: " + ex.getMessage());
         }
 
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(380, 380);
         frame.setResizable(true);
         frame.setVisible(true);
-
-
-        // Set the background color for the entire GUI
-        frame.getContentPane().setBackground(new Color(0xC4DFDF));
 
 
         JPanel panel = new JPanel(new BorderLayout());

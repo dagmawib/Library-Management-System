@@ -13,11 +13,11 @@ public class Library {
         // Simulate adding books to the library
         books.add(new AddBook("Book1", "Author1"));
         books.add(new AddBook("Book2", "Author2"));
-        books.add(new AddBook("Book2", "Author2"));
-        books.add(new AddBook("Book2", "Author2"));
-        books.add(new AddBook("Book2", "Author2"));
-        books.add(new AddBook("Book2", "Author2"));
-        books.add(new AddBook("Book2", "Author2"));
+        books.add(new AddBook("Book3", "Author3"));
+        books.add(new AddBook("Book4", "Author4"));
+        books.add(new AddBook("Book5", "Author5"));
+        books.add(new AddBook("Book6", "Author6"));
+        books.add(new AddBook("Book7", "Author7"));
         // Add more books as needed
     }
 
