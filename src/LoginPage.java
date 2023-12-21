@@ -50,10 +50,7 @@ public class LoginPage implements ActionListener {
         ImageIcon image = new ImageIcon("logo.jpg");
         frame.setIconImage(image.getImage());
 
-        ImageIcon icon = new ImageIcon("logo.jpg");
-        JLabel label = new JLabel(icon);
-        frame.add(label, BorderLayout.CENTER);
-
+        
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(20, 20, 20, 20);
