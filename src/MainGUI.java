@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -166,6 +167,19 @@ public class MainGUI {
         frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                HashMap<String, String> loginInfoOriginal = new HashMap<>(); // Initialize loginInfoOriginal with appropriate values
+                new LoginPage(loginInfoOriginal);
+            }
+        });
+
+        returnPanel.add(logoutButton);
+        logoutButton.add(returnPanel, BorderLayout.SOUTH);
+
     }
     private JTextField createPlaceholderTextField(String placeholder) {
         JTextField textField = new JTextField(20);
