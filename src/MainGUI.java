@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.List;
+
 
 public class MainGUI {
     private JFrame frame;
@@ -136,6 +138,17 @@ public class MainGUI {
                 viewAllBooks();
             }
             private void viewAllBooks() {
+                List<AddBook> availableBooks = libraryManagementSystem.getLibrary().getAllAvailableBooks();
+
+                if (!availableBooks.isEmpty()) {
+                    StringBuilder booksText = new StringBuilder("Available Books:\n");
+                    for (AddBook book : availableBooks) {
+                        booksText.append("- ").append(book.getTitle()).append("\n");
+                    }
+                    JOptionPane.showMessageDialog(frame, booksText.toString(), "Available Books", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No available books.", "Available Books", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
         viewAllBooksButton.setBackground(new Color(0x607D8B)); // Blue Gray button
@@ -218,7 +231,7 @@ public class MainGUI {
     private void returnBook() {
         String title = returnTextField.getText();
         String returnerName = returnerNameTextField.getText();
-        AddBook book = libraryManagementSystem.get();
+        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book == null) {
             libraryManagementSystem.getLibrary().returnBook(book);
             returnResultLabel.setText("Book returned: " + title + " by " + returnerName);
