@@ -10,22 +10,22 @@ Borrowing and Returning: Issue books with due dates, process returns, calculate 
 Search and Cataloging: Search books by title and author.
 
 ## Technologies Used
-Java: Core programming language for the system's implementation.
+#### Java: Core programming language for the system's implementation.
 
-Object-Oriented Programming: Utilized for designing modular and scalable classes.
+#### Object-Oriented Programming: Utilized for designing modular and scalable classes.
 
-File Handling/Database (Optional): Persistence mechanisms for storing book and member data.
+#### File Handling/Database (Optional): Persistence mechanisms for storing book and member data.
 
 ## How to Use
 Setup:
-Clone the repository to your local machine.
+#### Clone the repository to your local machine.
 
-Ensure Java Development Kit (JDK) is installed.
+#### Ensure Java Development Kit (JDK) is installed.
 
 Run the Application:
-Compile the Java files using a Java compiler (javac).
+#### Compile the Java files using a Java compiler (javac).
 
-Run the main Java file (java Main) to start the system.
+#### Run the main Java file (java Main) to start the system.
 
 ## Usage:
 Follow on-screen prompts or use the command-line interface to interact with the system.
