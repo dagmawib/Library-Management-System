@@ -139,7 +139,7 @@ public class MainGUI {
         viewAllBooksButton.setBackground(new Color(0x607D8B)); // Blue Gray button
         viewAllBooksButton.setForeground(Color.WHITE); // White text
         viewAllBooksButton.setFocusPainted(false); // No focus border
-//        panel.add(viewAllBooksButton, BorderLayout.SOUTH);
+       panel.add(viewAllBooksButton, BorderLayout.EAST);
 
         // Center components when the window is maximized
         frame.setLayout(new GridBagLayout());
