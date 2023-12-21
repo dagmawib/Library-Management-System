@@ -1,13 +1,9 @@
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.HashMap;
 
 public class LoginPage implements ActionListener {
@@ -19,6 +15,7 @@ public class LoginPage implements ActionListener {
     JLabel userIDLabel = new JLabel("Username:");
     JLabel userPasswordLabel = new JLabel("Password:");
     JLabel messageLabel = new JLabel();
+    JLabel logoLabel;  // New JLabel for the logo
     HashMap<String, String> logininfo = new HashMap<>();
 
     LoginPage(HashMap<String, String> loginInfoOriginal) {
@@ -43,24 +40,34 @@ public class LoginPage implements ActionListener {
         }
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
-        frame.setLayout(new GridBagLayout());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 800);
-        ImageIcon image = new ImageIcon("logo.jpg");
-        frame.setIconImage(image.getImage());
 
-        
-
+        frame.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+        ImageIcon image = new ImageIcon("/logo.png");
+        frame.setIconImage(image.getImage());
         gbc.insets = new Insets(20, 20, 20, 20);
 
+        // Add logo
+        try {
+            ImageIcon logoImage = new ImageIcon(LoginPage.class.getResource("/logo.jpg")); // Replace "logo.jpg" with your actual image file
+            logoImage.setImage(logoImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); // Adjust the logo size
+            logoLabel = new JLabel(logoImage);
+            gbc.gridx = 1;
+            gbc.gridy = 0;  // Logo above the username
+            gbc.gridwidth = 2;
+            gbc.anchor = GridBagConstraints.PAGE_START;  // Align to the top
+            frame.add(logoLabel, gbc);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         frame.add(userIDLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         userIDField.setPreferredSize(new Dimension(500, 30));
@@ -68,18 +75,18 @@ public class LoginPage implements ActionListener {
         frame.add(userIDField, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridwidth = 1;
         frame.add(userPasswordLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridwidth = 2;
         userPasswordField.setPreferredSize(new Dimension(500, 30));
         frame.add(userPasswordField, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
         loginButton.setPreferredSize(new Dimension(200, 40));
         loginButton.setBackground(new Color(0x0066CC)); // Medium Blue
@@ -87,7 +94,7 @@ public class LoginPage implements ActionListener {
         frame.add(loginButton, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridwidth = 2;
         frame.add(messageLabel, gbc);
 
@@ -115,6 +122,7 @@ public class LoginPage implements ActionListener {
                     textField.setForeground(Color.BLACK);
                 }
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 if (textField.getText().isEmpty()) {
