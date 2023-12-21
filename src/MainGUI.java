@@ -24,9 +24,9 @@ public class MainGUI {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
+        frame.setPreferredSize(new Dimension(1500, 400));
         frame.setResizable(true);
         frame.setVisible(true);
-
         frame.getContentPane().setBackground(new Color(0xF0F0F0)); // Light Gray background
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0xF0F0F0)); // Light Gray background
