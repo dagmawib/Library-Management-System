@@ -24,7 +24,7 @@ public class MainGUI {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setVisible(true);
 
         frame.getContentPane().setBackground(new Color(0xF0F0F0)); // Light Gray background
@@ -139,7 +139,7 @@ public class MainGUI {
         viewAllBooksButton.setBackground(new Color(0x607D8B)); // Blue Gray button
         viewAllBooksButton.setForeground(Color.WHITE); // White text
         viewAllBooksButton.setFocusPainted(false); // No focus border
-        // panel.add(viewAllBooksButton, BorderLayout.SOUTH);
+//        panel.add(viewAllBooksButton, BorderLayout.SOUTH);
 
         // Center components when the window is maximized
         frame.setLayout(new GridBagLayout());
@@ -215,7 +215,7 @@ public class MainGUI {
         AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
         if (book != null) {
             libraryManagementSystem.getLibrary().borrowBook(book);
-            borrowResultLabel.setText("Book borrowed: " + book.getTitle());
+            borrowResultLabel.setText("Book borrowed: " + book.getTitle() + " by " + borrowerName);
         } else {
             borrowResultLabel.setText("Book not found.");
         }
@@ -225,5 +225,11 @@ public class MainGUI {
         String title = returnTextField.getText();
         String returnerName = returnerNameTextField.getText();
         AddBook book = libraryManagementSystem.get();
+        if (book != null) {
+            libraryManagementSystem.getLibrary().returnBook(book);
+            returnResultLabel.setText("Book returned: " + title + " by " + returnerName);
+        } else {
+            returnResultLabel.setText("Book not found.");
+        }
     }
 }
