@@ -31,12 +31,11 @@ Search and Cataloging: Search books by title and author.
 Follow on-screen prompts or use the command-line interface to interact with the system.
 
 ## Contributors
-Dagmawi Belayneh
-Abdi Debela
-Abay Tesfaye
-Anan Serbesa
-Asmare 
-
+ + Dagmawi Belayneh
+ + Abdi Debela
+ + Abay Tesfaye
+ + Anan Serbesa
+ + Asmare Admasu
 ## Future Improvements
 Incorporating a graphical user interface (GUI) for enhanced user interaction.
 Integrating a database for persistent data storage.
