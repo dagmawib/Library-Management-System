@@ -6,83 +6,131 @@ import java.util.HashMap;
 
 public class LoginPage implements ActionListener {
 
-        JFrame frame = new JFrame();
-        JButton loginButton = new JButton("Login");
-        JButton resetButton = new JButton("Reset");
-        JTextField userIDField = new JTextField();
-        JPasswordField userPasswordField = new JPasswordField();
-        JLabel userIDLabel = new JLabel("userID:");
-        JLabel userPasswordLabel = new JLabel("password:");
-        JLabel messageLabel = new JLabel();
-        HashMap<String,String> logininfo = new HashMap<String,String>();
+    JFrame frame = new JFrame();
+    JButton loginButton = new JButton("Login");
+    JButton resetButton = new JButton("Reset");
+    JTextField userIDField = new JTextField();
+    JPasswordField userPasswordField = new JPasswordField();
+    JLabel userIDLabel = new JLabel("Username:");
+    JLabel userPasswordLabel = new JLabel("Password:");
+    JLabel messageLabel = new JLabel();
+    HashMap<String, String> logininfo = new HashMap<String, String>();
 
-        LoginPage(HashMap<String,String> loginInfoOriginal){
+    LoginPage(HashMap<String, String> loginInfoOriginal) {
 
-            logininfo = loginInfoOriginal;
+        logininfo = loginInfoOriginal;
 
-            userIDLabel.setBounds(50,100,75,25);
-            userPasswordLabel.setBounds(50,150,75,25);
+        // Increase the font size of JLabel username and password
+        Font labelFont = userIDLabel.getFont();
+        userIDLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, labelFont.getSize() * 2));
+        userPasswordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, labelFont.getSize() * 2));
 
-            messageLabel.setBounds(125,250,250,35);
-            messageLabel.setFont(new Font(null,Font.ITALIC,25));
+        userIDLabel.setForeground(Color.white);
+        userPasswordLabel.setForeground(Color.white);
 
-            userIDField.setBounds(125,100,200,25);
-            userPasswordField.setBounds(125,150,200,25);
+        messageLabel.setFont(new Font(null, Font.ITALIC, 70));
+        messageLabel.setForeground(Color.white);
 
-            loginButton.setBounds(125,200,100,25);
-            loginButton.setFocusable(false);
-            loginButton.addActionListener(this);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 1000);
 
-            resetButton.setBounds(225,200,100,25);
-            resetButton.setFocusable(false);
-            resetButton.addActionListener(this);
+        // Set background color
+        frame.getContentPane().setBackground(new Color(0x123456));
 
-            frame.add(userIDLabel);
-            frame.add(userPasswordLabel);
-            frame.add(messageLabel);
-            frame.add(userIDField);
-            frame.add(userPasswordField);
-            frame.add(loginButton);
-            frame.add(resetButton);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(420,420);
-            frame.setLayout(null);
-            frame.setVisible(true);
+        // Using GridBagLayout for better control over the layout
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 20, 20, 20); // Add insets to create a gap
 
+        // userIDLabel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        frame.add(userIDLabel, gbc);
+
+        // userIDField
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Allow horizontal expansion
+        userIDField.setPreferredSize(new Dimension(500, 30)); // Increase text field size
+        frame.add(userIDField, gbc);
+
+        // userPasswordLabel
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        frame.add(userPasswordLabel, gbc);
+
+        // userPasswordField
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        userPasswordField.setPreferredSize(new Dimension(500, 30)); // Increase text field size
+        frame.add(userPasswordField, gbc);
+
+        // loginButton
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        loginButton.setPreferredSize(new Dimension(200, 40)); // Increase button size
+        frame.add(loginButton, gbc);
+
+        // resetButton
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        resetButton.setPreferredSize(new Dimension(200, 40)); // Increase button size
+        frame.add(resetButton, gbc);
+
+        // messageLabel
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        frame.add(messageLabel, gbc);
+
+        // Center the frame on the screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (int) ((screenSize.getWidth() - frame.getWidth()) / 2);
+        int centerY = (int) ((screenSize.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(centerX, centerY);
+
+        // Initialize other components
+        userIDLabel.setText("userID:");
+        userPasswordLabel.setText("password:");
+        loginButton.setFocusable(false);
+        loginButton.addActionListener(this);
+        resetButton.setFocusable(false);
+        resetButton.addActionListener(this);
+
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == resetButton) {
+            userIDField.setText("");
+            userPasswordField.setText("");
         }
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == loginButton) {
+            String userID = userIDField.getText();
+            String password = String.valueOf(userPasswordField.getPassword());
 
-            if(e.getSource()==resetButton) {
-                userIDField.setText("");
-                userPasswordField.setText("");
-            }
-
-            if(e.getSource()==loginButton) {
-
-                String userID = userIDField.getText();
-                String password = String.valueOf(userPasswordField.getPassword());
-
-                if(logininfo.containsKey(userID)) {
-                    if(logininfo.get(userID).equals(password)) {
-                        messageLabel.setForeground(Color.green);
-                        messageLabel.setText("Login successful");
-                        frame.dispose();
-                        MainGUI MainGUI = new MainGUI(userID);
-
-                    }
-
-                    else {
-                        messageLabel.setForeground(Color.red);
-                        messageLabel.setText("Wrong password");
-                    }
-
-                }
-                else {
+            if (logininfo.containsKey(userID)) {
+                if (logininfo.get(userID).equals(password)) {
+                    messageLabel.setForeground(Color.green);
+                    messageLabel.setText("Login successful");
+                    frame.dispose();
+                    // Assuming MainGUI is another class, update accordingly
+                    MainGUI mainGUI = new MainGUI(userID);
+                } else {
                     messageLabel.setForeground(Color.red);
-                    messageLabel.setText("username not found");
+                    messageLabel.setText("Wrong password");
                 }
+            } else {
+                messageLabel.setForeground(Color.red);
+                messageLabel.setText("Username not found");
             }
         }
     }
+}
