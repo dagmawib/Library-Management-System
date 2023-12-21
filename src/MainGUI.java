@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class MainGUI {
     private JFrame frame;
@@ -16,7 +15,6 @@ public class MainGUI {
     private JLabel returnResultLabel;
 
     private LibraryManagementSystem libraryManagementSystem;
-
 
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
@@ -35,7 +33,6 @@ public class MainGUI {
         frame.setResizable(true);
         frame.setVisible(true);
 
-
         frame.getContentPane().setBackground(new Color(0xC4DFDF));
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0xC4DFDF)); // Set background color
@@ -44,11 +41,14 @@ public class MainGUI {
         searchPanel.setBackground(new Color(0xC4DFDF)); // Set background color
         searchPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
         JLabel searchLabel = new JLabel("Search Book:");
-        searchLabel.setFont(new Font(searchLabel.getFont().getName(), Font.PLAIN, searchLabel.getFont().getSize() * 2)); // Increase font size
+        Font labelFont = new Font(searchLabel.getFont().getName(), Font.PLAIN, searchLabel.getFont().getSize() * 2);
+        searchLabel.setFont(labelFont); // Increase font size
         searchPanel.add(searchLabel);
+
         searchTextField = new JTextField(40);
         searchTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         searchPanel.add(searchTextField);
+
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -57,6 +57,7 @@ public class MainGUI {
         });
         searchButton.setBackground(new Color(0xC4DFDF)); // Set background color
         searchPanel.add(searchButton);
+
         searchResultLabel = new JLabel();
         searchResultLabel.setBackground(new Color(0xC4DFDF)); // Set background color
         searchPanel.add(searchResultLabel);
@@ -65,14 +66,18 @@ public class MainGUI {
         borrowPanel.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
         JLabel borrowLabel = new JLabel("Borrow Book:");
-        borrowLabel.setFont(new Font(borrowLabel.getFont().getName(), Font.PLAIN, borrowLabel.getFont().getSize() * 2)); // Increase font size
+        borrowLabel.setFont(labelFont); // Use the same font as the label
         borrowPanel.add(borrowLabel);
+
         borrowTextField = new JTextField(40);
         borrowTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowTextField);
 
         // Add a label and text field for borrower name
-        borrowPanel.add(new JLabel("Borrower Name:"));
+        JLabel borrowerNameLabel = new JLabel("Borrower Name:");
+        borrowerNameLabel.setFont(labelFont); // Use the same font as the label
+        borrowPanel.add(borrowerNameLabel);
+
         borrowerNameTextField = new JTextField(40);
         borrowerNameTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowerNameTextField);
@@ -85,6 +90,7 @@ public class MainGUI {
         });
         borrowButton.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowButton);
+
         borrowResultLabel = new JLabel();
         borrowResultLabel.setBackground(new Color(0xC4DFDF)); // Set background color
         borrowPanel.add(borrowResultLabel);
@@ -92,13 +98,19 @@ public class MainGUI {
         JPanel returnPanel = new JPanel();
         returnPanel.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
-        returnPanel.add(new JLabel("Return Book:"));
+        JLabel returnLabel = new JLabel("Return Book:");
+        returnLabel.setFont(labelFont); // Use the same font as the label
+        returnPanel.add(returnLabel);
+
         returnTextField = new JTextField(40);
         returnTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.add(returnTextField);
 
         // Add a label and text field for returner name
-        returnPanel.add(new JLabel("Returner Name:"));
+        JLabel returnerNameLabel = new JLabel("Returner Name:");
+        returnerNameLabel.setFont(labelFont); // Use the same font as the label
+        returnPanel.add(returnerNameLabel);
+
         returnerNameTextField = new JTextField(40);
         returnerNameTextField.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.add(returnerNameTextField);
@@ -111,6 +123,7 @@ public class MainGUI {
         });
         returnButton.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.add(returnButton);
+
         returnResultLabel = new JLabel();
         returnResultLabel.setBackground(new Color(0xC4DFDF)); // Set background color
         returnPanel.add(returnResultLabel);
@@ -159,7 +172,6 @@ public class MainGUI {
             searchResultLabel.setText("Book not found.");
         }
     }
-
 
     private void addBook() {
         Label addBookTextFied = null;
