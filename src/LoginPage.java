@@ -1,9 +1,10 @@
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.HashMap;
 
 public class LoginPage implements ActionListener {
@@ -30,71 +31,88 @@ public class LoginPage implements ActionListener {
         messageLabel.setFont(new Font(null, Font.ITALIC, 70));
         messageLabel.setForeground(Color.white);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 800);
-        ImageIcon image = new ImageIcon("logo.png");
-        frame.setIconImage(image.getImage());
-        // Set background color
-        frame.getContentPane().setBackground(new Color(0x2B3A55));
+        // Set background image
+        try {
+            ImageIcon backgroundImage = new ImageIcon(LoginPage.class.getResource("/background.png"));
+            frame.setContentPane(new JLabel(backgroundImage));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        
-        // Using GridBagLayout for better control over the layout
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1000, 1000);
         frame.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(20, 20, 20, 20); // Add insets to create a gap
+        gbc.insets = new Insets(20, 20, 20, 20);
 
-        // userIDLabel
         gbc.gridx = 0;
         gbc.gridy = 0;
         frame.add(userIDLabel, gbc);
 
-        // userIDField
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Allow horizontal expansion
-        userIDField.setPreferredSize(new Dimension(500, 30)); // Increase text field size
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        userIDField.setPreferredSize(new Dimension(500, 30));
+        setPlaceholder(userIDField, "Enter username");
         frame.add(userIDField, gbc);
 
-        // userPasswordLabel
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         frame.add(userPasswordLabel, gbc);
 
-        // userPasswordField
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
-        userPasswordField.setPreferredSize(new Dimension(500, 30)); // Increase text field size
+        userPasswordField.setPreferredSize(new Dimension(500, 30));
         frame.add(userPasswordField, gbc);
 
-        // loginButton
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        loginButton.setPreferredSize(new Dimension(200, 40)); // Increase button size
+        loginButton.setPreferredSize(new Dimension(200, 40));
+        loginButton.setBackground(new Color(0x0066CC)); // Medium Blue
+        loginButton.setForeground(Color.WHITE);
         frame.add(loginButton, gbc);
 
-        // messageLabel
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         frame.add(messageLabel, gbc);
 
-        // Center the frame on the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = (int) ((screenSize.getWidth() - frame.getWidth()) / 2);
         int centerY = (int) ((screenSize.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(centerX, centerY);
 
-        // Initialize other components
         userIDLabel.setText("Username:");
         userPasswordLabel.setText("Password:");
         loginButton.setFocusable(false);
         loginButton.addActionListener(this);
 
         frame.setVisible(true);
+    }
+
+    private void setPlaceholder(JTextField textField, String placeholder) {
+        textField.setForeground(new Color(0x666666)); // Dark Gray
+        textField.setText(placeholder);
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals(placeholder)) {
+                    textField.setText("");
+                    textField.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setForeground(new Color(0x666666)); // Dark Gray
+                    textField.setText(placeholder);
+                }
+            }
+        });
     }
 
     @Override
@@ -105,7 +123,7 @@ public class LoginPage implements ActionListener {
 
             if (logininfo.containsKey(userID)) {
                 if (logininfo.get(userID).equals(password)) {
-                    messageLabel.setForeground(Color.green);
+                    messageLabel.setForeground(new Color(0x009933)); // Green
                     messageLabel.setText("Login successful");
                     frame.dispose();
                     // Assuming MainGUI is another class, update accordingly
