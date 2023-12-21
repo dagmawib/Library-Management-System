@@ -8,19 +8,16 @@ public class LoginPage implements ActionListener {
 
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
-    JButton resetButton = new JButton("Reset");
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
     JLabel userIDLabel = new JLabel("Username:");
     JLabel userPasswordLabel = new JLabel("Password:");
     JLabel messageLabel = new JLabel();
-    HashMap<String, String> logininfo = new HashMap<String, String>();
+    HashMap<String, String> logininfo = new HashMap<>();
 
     LoginPage(HashMap<String, String> loginInfoOriginal) {
-
         logininfo = loginInfoOriginal;
 
-        // Increase the font size of JLabel username and password
         Font labelFont = userIDLabel.getFont();
         userIDLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, labelFont.getSize() * 2));
         userPasswordLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, labelFont.getSize() * 2));
@@ -71,16 +68,9 @@ public class LoginPage implements ActionListener {
         // loginButton
         gbc.gridx = 1;
         gbc.gridy = 2;
-        gbc.gridwidth = 1;
+        gbc.gridwidth = 2;
         loginButton.setPreferredSize(new Dimension(200, 40)); // Increase button size
         frame.add(loginButton, gbc);
-
-        // resetButton
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        resetButton.setPreferredSize(new Dimension(200, 40)); // Increase button size
-        frame.add(resetButton, gbc);
 
         // messageLabel
         gbc.gridx = 1;
@@ -95,23 +85,16 @@ public class LoginPage implements ActionListener {
         frame.setLocation(centerX, centerY);
 
         // Initialize other components
-        userIDLabel.setText("userID:");
-        userPasswordLabel.setText("password:");
+        userIDLabel.setText("Username:");
+        userPasswordLabel.setText("Password:");
         loginButton.setFocusable(false);
         loginButton.addActionListener(this);
-        resetButton.setFocusable(false);
-        resetButton.addActionListener(this);
 
         frame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == resetButton) {
-            userIDField.setText("");
-            userPasswordField.setText("");
-        }
-
         if (e.getSource() == loginButton) {
             String userID = userIDField.getText();
             String password = String.valueOf(userPasswordField.getPassword());
@@ -132,5 +115,14 @@ public class LoginPage implements ActionListener {
                 messageLabel.setText("Username not found");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        HashMap<String, String> loginInfo = new HashMap<>();
+        loginInfo.put("user1", "password1");
+        loginInfo.put("user2", "password2");
+
+        SwingUtilities.invokeLater(() -> new LoginPage(loginInfo));
     }
 }
