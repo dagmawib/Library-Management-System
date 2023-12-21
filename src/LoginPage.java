@@ -1,7 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public class LoginPage implements ActionListener {
@@ -29,11 +31,13 @@ public class LoginPage implements ActionListener {
         messageLabel.setForeground(Color.white);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
-
+        frame.setSize(900, 800);
+        ImageIcon image = new ImageIcon("logo.png");
+        frame.setIconImage(image.getImage());
         // Set background color
         frame.getContentPane().setBackground(new Color(0x2B3A55));
 
+        
         // Using GridBagLayout for better control over the layout
         frame.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

@@ -26,6 +26,8 @@ public class MainGUI {
         frame.setSize(400, 400);
         frame.setPreferredSize(new Dimension(1500, 400));
         frame.setResizable(true);
+        ImageIcon image = new ImageIcon("logo.png");
+        frame.setIconImage(image.getImage());
         frame.setVisible(true);
         frame.getContentPane().setBackground(new Color(0xF0F0F0)); // Light Gray background
         JPanel panel = new JPanel(new BorderLayout());
