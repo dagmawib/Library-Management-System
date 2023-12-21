@@ -17,12 +17,6 @@ public class MainGUI {
 
     private LibraryManagementSystem libraryManagementSystem;
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            IDandPasswords idandPasswords = new IDandPasswords();
-            LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
-        });
-    }
 
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
@@ -42,6 +36,7 @@ public class MainGUI {
         frame.setVisible(true);
 
 
+        frame.getContentPane().setBackground(new Color(0xC4DFDF));
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0xC4DFDF)); // Set background color
 
@@ -99,6 +94,8 @@ public class MainGUI {
         returnPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
         returnPanel.add(new JLabel("Return Book:"));
         returnTextField = new JTextField(40);
+        returnTextField.setBackground(new Color(0xC4DFDF)); // Set background color
+        returnPanel.add(returnTextField);
 
         // Add a label and text field for returner name
         returnPanel.add(new JLabel("Returner Name:"));
@@ -122,9 +119,6 @@ public class MainGUI {
         panel.add(borrowPanel, BorderLayout.CENTER);
         panel.add(returnPanel, BorderLayout.SOUTH);
 
-        // Add a vertical gap between Borrow and View All Books
-        panel.add(createVerticalGap(), BorderLayout.SOUTH);
-
         JButton viewAllBooksButton = new JButton("View All Books");
         viewAllBooksButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -135,7 +129,7 @@ public class MainGUI {
             }
         });
         viewAllBooksButton.setBackground(new Color(0xC4DFDF)); // Set background color
-        panel.add(viewAllBooksButton, BorderLayout.SOUTH);
+//        panel.add(viewAllBooksButton, BorderLayout.SOUTH);
 
         // Center components when window is maximized
         frame.setLayout(new GridBagLayout());
