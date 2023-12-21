@@ -27,7 +27,7 @@ public class MainGUI {
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
         frame = new JFrame("Library Management System");
-<<<<<<< HEAD
+
 
         try {
             // Add logo above the login form
@@ -40,20 +40,17 @@ public class MainGUI {
             ex.printStackTrace();
             System.out.println("Error loading the logo: " + ex.getMessage());
         }
-=======
->>>>>>> dfa4424aafffa1a2b12919d503764b976fec3d2e
+
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(380, 380);
         frame.setResizable(true);
         frame.setVisible(true);
 
-<<<<<<< HEAD
-        // ... (rest of the code)
-=======
+
         // Set the background color for the entire GUI
         frame.getContentPane().setBackground(new Color(0xC4DFDF));
->>>>>>> dfa4424aafffa1a2b12919d503764b976fec3d2e
+
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0xC4DFDF)); // Set background color
@@ -178,20 +175,20 @@ public class MainGUI {
             searchResultLabel.setText("Book not found.");
         }
     }
-<<<<<<< HEAD
+
 
     private void addBook() {
+        Label addBookTextFied = null;
         String title = addBookTextFied.getText();
+        Label authorTextField = null;
         String author = authorTextField.getText();
 
         // Placeholder for AddBook.main() - Replace with actual implementation
         AddBook book = AddBook.main();
+        Label addBookLabel = null;
         addBookLabel.setText(book.getTitle() + " Successfully added!");
     }
 
-=======
-
->>>>>>> dfa4424aafffa1a2b12919d503764b976fec3d2e
     private void borrowBook() {
         String title = borrowTextField.getText();
         String borrowerName = borrowerNameTextField.getText();
