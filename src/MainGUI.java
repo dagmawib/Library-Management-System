@@ -168,18 +168,18 @@ public class MainGUI {
         frame.pack();
         frame.setVisible(true);
 
+        IDandPasswords iDandPasswords = new IDandPasswords();
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 HashMap<String, String> loginInfoOriginal = new HashMap<>(); // Initialize loginInfoOriginal with appropriate values
+                loginInfoOriginal = iDandPasswords.getLoginInfo();
                 new LoginPage(loginInfoOriginal);
             }
         });
-
         returnPanel.add(logoutButton);
         logoutButton.add(returnPanel, BorderLayout.SOUTH);
-
     }
     private JTextField createPlaceholderTextField(String placeholder) {
         JTextField textField = new JTextField(20);
