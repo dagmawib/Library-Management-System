@@ -7,7 +7,7 @@ This project is a Java-based Library Management System designed to automate and 
 ## Features
 
 Borrowing and Returning: Issue books with due dates, process returns, calculate fines for overdue books.
-Search and Cataloging: Search books by title, author, genre, ISBN, etc. Create a systematic catalog.
+Search and Cataloging: Search books by title and author.
 
 ## Technologies Used
 Java: Core programming language for the system's implementation.
