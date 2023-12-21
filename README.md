@@ -17,12 +17,12 @@ Search and Cataloging: Search books by title and author.
 #### File Handling/Database (Optional): Persistence mechanisms for storing book and member data.
 
 ## How to Use
-Setup:
+ ### Setup:
 #### Clone the repository to your local machine.
 
 #### Ensure Java Development Kit (JDK) is installed.
 
-Run the Application:
+### Run the Application:
 #### Compile the Java files using a Java compiler (javac).
 
 #### Run the main Java file (java Main) to start the system.
