@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.HashMap;
-
 public class LoginPage implements ActionListener {
-
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
     JTextField userIDField = new JTextField();
@@ -38,16 +36,13 @@ public class LoginPage implements ActionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 800);
-
         frame.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         ImageIcon image = new ImageIcon("/logo.png");
         frame.setIconImage(image.getImage());
         gbc.insets = new Insets(20, 20, 20, 20);
-
         // Add logo
         try {
             ImageIcon logoImage = new ImageIcon(LoginPage.class.getResource("/logo.jpg")); // Replace "logo.jpg" with your actual image file
@@ -61,7 +56,6 @@ public class LoginPage implements ActionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         gbc.gridx = 0;
         gbc.gridy = 1;
         frame.add(userIDLabel, gbc);
@@ -156,13 +150,13 @@ public class LoginPage implements ActionListener {
             }
         }
     }
-
-    public static void main(String[] args) {
-        // Example usage:
-        HashMap<String, String> loginInfo = new HashMap<>();
-        loginInfo.put("user1", "password1");
-        loginInfo.put("user2", "password2");
-
-        SwingUtilities.invokeLater(() -> new LoginPage(loginInfo));
-    }
 }
+//    public static void main(String[] args) {
+//        // Example usage:
+//        HashMap<String, String> loginInfo = new HashMap<>();
+//        loginInfo.put("user1", "password1");
+//        loginInfo.put("user2", "password2");
+//
+//        SwingUtilities.invokeLater(() -> new LoginPage(loginInfo));
+//    }
+//}
