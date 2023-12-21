@@ -21,7 +21,6 @@ public class MainGUI {
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
         frame = new JFrame("Library Management System");
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 400);
         frame.setPreferredSize(new Dimension(1500, 400));
@@ -30,12 +29,14 @@ public class MainGUI {
         frame.setIconImage(image.getImage());
         frame.setVisible(true);
         frame.getContentPane().setBackground(new Color(0xF0F0F0)); // Light Gray background
+
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0xF0F0F0)); // Light Gray background
 
         JPanel searchPanel = new JPanel();
         searchPanel.setBackground(new Color(0xF0F0F0)); // Light Gray background
         searchPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
+
         JLabel searchLabel = new JLabel("Search Book:");
         Font labelFont = new Font(searchLabel.getFont().getName(), Font.BOLD, searchLabel.getFont().getSize() * 2);
         searchLabel.setFont(labelFont); // Increase font size
@@ -134,7 +135,6 @@ public class MainGUI {
             public void actionPerformed(ActionEvent e) {
                 viewAllBooks();
             }
-
             private void viewAllBooks() {
             }
         });
@@ -148,13 +148,12 @@ public class MainGUI {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        frame.add(panel, gbc);
 
+        frame.add(panel, gbc);
         frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);
     }
-
     private JTextField createPlaceholderTextField(String placeholder) {
         JTextField textField = new JTextField(20);
         textField.setBackground(new Color(0xFFFFFF)); // White background
@@ -170,7 +169,6 @@ public class MainGUI {
                     textField.setText("");
                 }
             }
-
             @Override
             public void focusLost(FocusEvent e) {
                 if (textField.getText().isEmpty()) {
@@ -178,17 +176,14 @@ public class MainGUI {
                 }
             }
         });
-
         return textField;
     }
-
     private JPanel createVerticalGap() {
         JPanel gapPanel = new JPanel();
         gapPanel.setOpaque(false); // Make the panel transparent
         gapPanel.setPreferredSize(new Dimension(0, 20)); // Set the vertical gap size
         return gapPanel;
     }
-
     private void searchBook() {
         String title = searchTextField.getText();
         AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
@@ -198,7 +193,6 @@ public class MainGUI {
             searchResultLabel.setText("Book not found.");
         }
     }
-
     private void addBook() {
         Label addBookTextFied = null;
         String title = addBookTextFied.getText();
@@ -210,7 +204,6 @@ public class MainGUI {
         Label addBookLabel = null;
         addBookLabel.setText(book.getTitle() + " Successfully added!");
     }
-
     private void borrowBook() {
         String title = borrowTextField.getText();
         String borrowerName = borrowerNameTextField.getText();
@@ -222,7 +215,6 @@ public class MainGUI {
             borrowResultLabel.setText("Book not found.");
         }
     }
-
     private void returnBook() {
         String title = returnTextField.getText();
         String returnerName = returnerNameTextField.getText();
