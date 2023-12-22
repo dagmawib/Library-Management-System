@@ -133,6 +133,7 @@ public class MainGUI {
         panel.add(borrowPanel, BorderLayout.CENTER);
         panel.add(returnPanel, BorderLayout.SOUTH);
 
+        // add button to see the whole books
         JButton viewAllBooksButton = new JButton("View All Books");
         viewAllBooksButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
