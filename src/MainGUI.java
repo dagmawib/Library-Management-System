@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -140,16 +141,27 @@ public class MainGUI {
                 viewAllBooks();
             }
             private void viewAllBooks() {
-                List<AddBook> availableBooks = libraryManagementSystem.getLibrary().getAllAvailableBooks();
+                try {
+                    Connection conn = DriverManager.getConnection(Database.CONNECTION_STRING);
+                    Statement statement = conn.createStatement();
+                    ResultSet results = statement.executeQuery("SELECT * FROM " + Database.TABLE_BOOKS);
 
-                if (!availableBooks.isEmpty()) {
-                    StringBuilder booksText = new StringBuilder("Available Books:\n");
-                    for (AddBook book : availableBooks) {
-                        booksText.append("- ").append(book.getTitle()).append("\n");
+                    // Create a StringBuilder to store the books information
+                    StringBuilder booksText = new StringBuilder("All Books:\n");
+
+                    while (results.next()) {
+                        String title = results.getString(Database.COLUMN_TITLE);
+                        booksText.append("- ").append(title).append("\n");
                     }
-                    JOptionPane.showMessageDialog(frame, booksText.toString(), "Available Books", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(frame, "No available books.", "Available Books", JOptionPane.INFORMATION_MESSAGE);
+
+                    results.close();
+                    conn.close();
+
+                    // Show the list of books directly in the GUI
+                    JOptionPane.showMessageDialog(frame, booksText.toString(), "All Books", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(frame, "Error retrieving books from the database.", "Error", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
                 }
             }
         });
