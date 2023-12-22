@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.HashMap;
+import java.util.logging.*;
 public class LoginPage implements ActionListener {
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
@@ -14,7 +15,9 @@ public class LoginPage implements ActionListener {
     JLabel userPasswordLabel = new JLabel("Password:");
     JLabel messageLabel = new JLabel();
     JLabel logoLabel;  // New JLabel for the logo
-    HashMap<String, String> logininfo = new HashMap<>();
+   // HashMap<String, String> logininfo = new HashMap<>();
+   HashMap<String, String> logininfo = new HashMap<>();
+
 
     LoginPage(HashMap<String, String> loginInfoOriginal) {
         logininfo = loginInfoOriginal;
@@ -31,11 +34,20 @@ public class LoginPage implements ActionListener {
 
         // Set background image
         try {
-            ImageIcon backgroundImage = new ImageIcon(LoginPage.class.getResource("/background.png"));
-            frame.setContentPane(new JLabel(backgroundImage));
+            java.net.URL imageUrl = LoginPage.class.getResource("/background.png");
+
+            if (imageUrl != null) {
+                ImageIcon backgroundImage = new ImageIcon(imageUrl);
+                frame.setContentPane(new JLabel(backgroundImage));
+            } else {
+                Logger logger = Logger.getLogger(LoginPage.class.getName());
+                logger.log(Level.SEVERE, "Background image not found.");
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(LoginPage.class.getName());
+            logger.log(Level.SEVERE, "An error occurred while loading the background image.", e);
         }
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 800);
         frame.setLayout(new GridBagLayout());
@@ -45,17 +57,26 @@ public class LoginPage implements ActionListener {
         gbc.insets = new Insets(20, 20, 20, 20);
         // Add logo
         try {
-            ImageIcon logoImage = new ImageIcon(LoginPage.class.getResource("/logo.jpg")); // Replace "logo.jpg" with your actual image file
-            logoImage.setImage(logoImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); // Adjust the logo size
-            logoLabel = new JLabel(logoImage);
-            gbc.gridx = 1;
-            gbc.gridy = 0;  // Logo above the username
-            gbc.gridwidth = 2;
-            gbc.anchor = GridBagConstraints.PAGE_START;  // Align to the top
-            frame.add(logoLabel, gbc);
+            java.net.URL imageUrl = LoginPage.class.getResource("/logo.jpg");
+
+            if (imageUrl != null) {
+                ImageIcon logoImage = new ImageIcon(imageUrl);
+                logoImage.setImage(logoImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)); // Adjust the logo size
+                logoLabel = new JLabel(logoImage);
+                gbc.gridx = 1;
+                gbc.gridy = 0;  // Logo above the username
+                gbc.gridwidth = 2;
+                gbc.anchor = GridBagConstraints.PAGE_START;  // Align to the top
+                frame.add(logoLabel, gbc);
+            } else {
+                Logger logger = Logger.getLogger(LoginPage.class.getName());
+                logger.log(Level.SEVERE, "Logo image not found.");
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger(LoginPage.class.getName());
+            logger.log(Level.SEVERE, "An error occurred while loading the logo image.", e);
         }
+
         gbc.gridx = 0;
         gbc.gridy = 1;
         frame.add(userIDLabel, gbc);
