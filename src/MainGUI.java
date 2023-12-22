@@ -6,21 +6,26 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.List;
+import java.util.logging.*;
+//import java.util.List;
 
 
 public class MainGUI {
-    private JFrame frame;
-    private JTextField searchTextField;
-    private JLabel searchResultLabel;
-    private JTextField borrowTextField;
-    private JTextField borrowerNameTextField;
-    private JLabel borrowResultLabel;
-    private JTextField returnTextField;
-    private JTextField returnerNameTextField;
-    private JLabel returnResultLabel;
+    public JFrame frame;
+    public JTextField searchTextField;
+    public JLabel searchResultLabel;
+    public JTextField borrowTextField;
+    public JTextField borrowerNameTextField;
+    public JLabel borrowResultLabel;
+    public JTextField returnTextField;
+    public JTextField returnerNameTextField;
+    public JLabel returnResultLabel;
 
-    private LibraryManagementSystem libraryManagementSystem;
+    public JTextField addBookTextField;
+    public JTextField authorTextField;
+    public JLabel addBookLabel;
+
+    public LibraryManagementSystem libraryManagementSystem;
 
     MainGUI(String userID) {
         libraryManagementSystem = new LibraryManagementSystem();
@@ -50,11 +55,7 @@ public class MainGUI {
         searchPanel.add(searchTextField);
 
         JButton searchButton = new JButton("Search");
-        searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                searchBook();
-            }
-        });
+        searchButton.addActionListener(e -> searchBook()); // lambda expression
         searchButton.setBackground(new Color(0x4CAF50)); // Green button
         searchButton.setForeground(Color.WHITE); // White text
         searchButton.setFocusPainted(false); // No focus border
@@ -83,11 +84,7 @@ public class MainGUI {
         borrowPanel.add(borrowerNameTextField);
 
         JButton borrowButton = new JButton("Borrow");
-        borrowButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                borrowBook();
-            }
-        });
+        borrowButton.addActionListener(e -> borrowBook()); //lambda expression
         borrowButton.setBackground(new Color(0x2196F3)); // Blue button
         borrowButton.setForeground(Color.WHITE); // White text
         borrowButton.setFocusPainted(false); // No focus border
@@ -116,11 +113,7 @@ public class MainGUI {
         returnPanel.add(returnerNameTextField);
 
         JButton returnButton = new JButton("Return");
-        returnButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                returnBook();
-            }
-        });
+        returnButton.addActionListener(e -> returnBook()); //lambda expression
         returnButton.setBackground(new Color(0xFF5722)); // Deep Orange button
         returnButton.setForeground(Color.WHITE); // White text
         returnButton.setFocusPainted(false); // No focus border
@@ -134,7 +127,7 @@ public class MainGUI {
         panel.add(borrowPanel, BorderLayout.CENTER);
         panel.add(returnPanel, BorderLayout.SOUTH);
 
-        // add button to see the whole books
+
         JButton viewAllBooksButton = new JButton("View All Books");
         viewAllBooksButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -160,10 +153,13 @@ public class MainGUI {
                     // Show the list of books directly in the GUI
                     JOptionPane.showMessageDialog(frame, booksText.toString(), "All Books", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException e) {
+                    Logger logger = Logger.getLogger(getClass().getName());
+                    logger.log(Level.SEVERE, "Error retrieving books from the database.", e);
+
                     JOptionPane.showMessageDialog(frame, "Error retrieving books from the database.", "Error", JOptionPane.ERROR_MESSAGE);
-                    e.printStackTrace();
                 }
             }
+
         });
         viewAllBooksButton.setBackground(new Color(0x607D8B)); // Blue Gray button
         viewAllBooksButton.setForeground(Color.WHITE); // White text
@@ -184,14 +180,18 @@ public class MainGUI {
         //instance of iDandPasswords class
         IDandPasswords iDandPasswords = new IDandPasswords();
         JButton logoutButton = new JButton("Logout"); // Create the logout button
-        logoutButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                HashMap<String, String> loginInfoOriginal = new HashMap<>(); // Initialize loginInfoOriginal with appropriate values
-                loginInfoOriginal = iDandPasswords.getLoginInfo(); // loginInfoOriginal get information from iDandPasswords object
-                new LoginPage(loginInfoOriginal);
-            }
+        logoutButton.addActionListener(e -> {
+            frame.dispose();
+
+            // Assuming iD and Passwords is an object of type that has getLoginInfo() method
+          //  HashMap<String, String> loginInfoOriginal = iDandPasswords.getLoginInfo();
+            @SuppressWarnings("unchecked")
+            HashMap<String, String> loginInfoOriginal = (HashMap<String, String>) iDandPasswords.getLoginInfo();
+
+
+            new LoginPage(loginInfoOriginal);
         });
+
         returnPanel.add(logoutButton);
         logoutButton.add(returnPanel, BorderLayout.SOUTH);
     }
@@ -219,7 +219,7 @@ public class MainGUI {
         });
         return textField;
     }
-    private JPanel createVerticalGap() {
+    public JPanel createVerticalGap() {
         JPanel gapPanel = new JPanel();
         gapPanel.setOpaque(false); // Make the panel transparent
         gapPanel.setPreferredSize(new Dimension(0, 20)); // Set the vertical gap size
@@ -235,14 +235,14 @@ public class MainGUI {
         }
     }
     private void addBook() {
-        Label addBookTextFied = null;
-        String title = addBookTextFied.getText();
-        Label authorTextField = null;
+        // Assuming addBookTextField and authorTextField are JTextField components in your GUI
+        String title = addBookTextField.getText();
         String author = authorTextField.getText();
 
         // Placeholder for AddBook.main() - Replace with the actual implementation
         AddBook book = AddBook.main();
-        Label addBookLabel = null;
+
+        // Assuming addBookLabel is a JLabel component in your GUI
         addBookLabel.setText(book.getTitle() + " Successfully added!");
     }
     private void borrowBook() {

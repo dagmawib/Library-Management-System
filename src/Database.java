@@ -7,7 +7,7 @@ public class Database {
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_AUTHOR = "author";
-    private static boolean COLUMN_BORROWED;
+    public static boolean COLUMN_BORROWED;
 
     public static void main(String[] args) {
         try {
