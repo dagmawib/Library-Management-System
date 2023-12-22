@@ -8,5 +8,6 @@
     <content url="jar://$MODULE_DIR$/lib/mysql-connector-j-8.2.0.jar!/" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="sqlite-jdbc-3.14.2" level="project" />
   </component>
 </module>

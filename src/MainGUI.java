@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.logging.*;
 //import java.util.List;
 
+import static java.sql.DriverManager.getConnection;
+
 
 public class MainGUI {
     public JFrame frame;
@@ -133,22 +135,28 @@ public class MainGUI {
             public void actionPerformed(ActionEvent e) {
                 viewAllBooks();
             }
-            private void viewAllBooks() {
+            public void viewAllBooks() {
                 try {
-                    Connection conn = DriverManager.getConnection(Database.CONNECTION_STRING);
-                    Statement statement = conn.createStatement();
-                    ResultSet results = statement.executeQuery("SELECT * FROM " + Database.TABLE_BOOKS);
+                    StringBuilder booksText;
+                    try (Connection conn = getConnection(Database.CONNECTION_STRING)) {
+                        Statement statement = conn.createStatement();
+                        ResultSet results = statement.executeQuery("SELECT * FROM " + Database.TABLE_BOOKS);
+//
+                        // Create a StringBuilder to store the books information
+                        booksText = new StringBuilder("All Books:\n");
 
-                    // Create a StringBuilder to store the books information
-                    StringBuilder booksText = new StringBuilder("All Books:\n");
+                        while (results.next()) {
+                            String title = results.getString(Database.COLUMN_TITLE);
+                            String author = results.getString(Database.COLUMN_AUTHOR);
+                            boolean borrow = results.getBoolean(String.valueOf(Database.COLUMN_BORROWED));
+                            if (!borrow) {
+                                booksText.append("- ").append(title).append(" ==> ").append(author).append("\n");
+                            }
+                        }
 
-                    while (results.next()) {
-                        String title = results.getString(Database.COLUMN_TITLE);
-                        booksText.append("- ").append(title).append("\n");
+                        results.close();
+                        conn.close();
                     }
-
-                    results.close();
-                    conn.close();
 
                     // Show the list of books directly in the GUI
                     JOptionPane.showMessageDialog(frame, booksText.toString(), "All Books", JOptionPane.INFORMATION_MESSAGE);
@@ -164,7 +172,7 @@ public class MainGUI {
         viewAllBooksButton.setBackground(new Color(0x607D8B)); // Blue Gray button
         viewAllBooksButton.setForeground(Color.WHITE); // White text
         viewAllBooksButton.setFocusPainted(false); // No focus border
-       panel.add(viewAllBooksButton, BorderLayout.EAST);
+        panel.add(viewAllBooksButton, BorderLayout.EAST);
 
         // Center components when the window is maximized
         frame.setLayout(new GridBagLayout());
@@ -184,7 +192,7 @@ public class MainGUI {
             frame.dispose();
 
             // Assuming iD and Passwords is an object of type that has getLoginInfo() method
-          //  HashMap<String, String> loginInfoOriginal = iDandPasswords.getLoginInfo();
+            //  HashMap<String, String> loginInfoOriginal = iDandPasswords.getLoginInfo();
             @SuppressWarnings("unchecked")
             HashMap<String, String> loginInfoOriginal = (HashMap<String, String>) iDandPasswords.getLoginInfo();
 
@@ -193,7 +201,6 @@ public class MainGUI {
         });
 
         returnPanel.add(logoutButton);
-        logoutButton.add(returnPanel, BorderLayout.SOUTH);
     }
     private JTextField createPlaceholderTextField(String placeholder) {
         JTextField textField = new JTextField(20);
