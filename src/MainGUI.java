@@ -169,14 +169,14 @@ public class MainGUI {
         frame.pack();
         frame.setVisible(true);
 
-        //open instance of iDandPasswords
+        //instance of iDandPasswords class
         IDandPasswords iDandPasswords = new IDandPasswords();
-        JButton logoutButton = new JButton("Logout");
+        JButton logoutButton = new JButton("Logout"); // Create the logout button
         logoutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 HashMap<String, String> loginInfoOriginal = new HashMap<>(); // Initialize loginInfoOriginal with appropriate values
-                loginInfoOriginal = iDandPasswords.getLoginInfo();
+                loginInfoOriginal = iDandPasswords.getLoginInfo(); // loginInfoOriginal get information from iDandPasswords object
                 new LoginPage(loginInfoOriginal);
             }
         });
