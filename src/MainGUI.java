@@ -169,6 +169,7 @@ public class MainGUI {
         frame.pack();
         frame.setVisible(true);
 
+        //open instance of iDandPasswords
         IDandPasswords iDandPasswords = new IDandPasswords();
         JButton logoutButton = new JButton("Logout");
         logoutButton.addActionListener(new ActionListener() {
