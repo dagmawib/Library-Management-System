@@ -295,14 +295,45 @@ public class MainGUI {
 
     }
     private void returnBook() {
-        String title = returnTextField.getText();
-        String returnerName = returnerNameTextField.getText();
-        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
-        if (book == null) {
-            libraryManagementSystem.getLibrary().returnBook(book);
-            returnResultLabel.setText("Book returned: " + title + " by " + returnerName);
-        } else {
-            returnResultLabel.setText("Book not found.");
+        try (Connection conn = getConnection(Database.CONNECTION_STRING)) {
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery("SELECT * FROM " + Database.TABLE_BOOKS);
+
+            String borrowerName = borrowerNameTextField.getText();
+            String title = borrowTextField.getText();
+
+            boolean bookFound = false;
+
+            while (results.next()) {
+                String fetchedTitle = results.getString(Database.COLUMN_TITLE);
+                int id = results.getInt(Database.COLUMN_ID);
+                boolean borrowStatus = results.getBoolean(String.valueOf(Database.COLUMN_BORROWED));
+                if (fetchedTitle.equalsIgnoreCase(title)) {
+                    bookFound = true;
+                    // Once the book is borrowed it will change the borrow status.
+                    PreparedStatement updateStatement = conn.prepareStatement("UPDATE " + Database.TABLE_BOOKS + " SET " + Database.COLUMN_BORROWED + " = ? WHERE " + Database.COLUMN_ID + " = ?");
+                    updateStatement.setBoolean(1, false);
+                    updateStatement.setInt(2, id);
+                    updateStatement.executeUpdate();
+                    if (borrowStatus) {
+                        returnResultLabel.setText("Book returned: " + title + " by " + borrowerName);
+
+                    } else {
+                        returnResultLabel.setText("Book wasn't borrowed.");
+                    }
+                    break; // Exit the loop once the book is found
+                }
+            }
+
+            if (!bookFound) {
+                returnResultLabel.setText("Book not found.");
+            }
+
+            results.close();
+            conn.close();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
-}
+
+    }
