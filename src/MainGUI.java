@@ -159,7 +159,7 @@ public class MainGUI {
                     }
 
                     // Show the list of books directly in the GUI
-                    JOptionPane.showMessageDialog(frame, booksText.toString(), "All Books", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, booksText.toString(), "Available Books", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException e) {
                     Logger logger = Logger.getLogger(getClass().getName());
                     logger.log(Level.SEVERE, "Error retrieving books from the database.", e);
@@ -252,16 +252,47 @@ public class MainGUI {
         // Assuming addBookLabel is a JLabel component in your GUI
         addBookLabel.setText(book.getTitle() + " Successfully added!");
     }
-    private void borrowBook() {
-        String title = borrowTextField.getText();
-        String borrowerName = borrowerNameTextField.getText();
-        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
-        if (book != null) {
-            libraryManagementSystem.getLibrary().borrowBook(book);
-            borrowResultLabel.setText("Book borrowed: " + book.getTitle() + " by " + borrowerName);
-        } else {
-            borrowResultLabel.setText("Book not found.");
+    public void borrowBook() {
+        try (Connection conn = getConnection(Database.CONNECTION_STRING)) {
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery("SELECT * FROM " + Database.TABLE_BOOKS);
+
+            String borrowerName = borrowerNameTextField.getText();
+            String title = borrowTextField.getText();
+
+            boolean bookFound = false;
+
+            while (results.next()) {
+                String fetchedTitle = results.getString(Database.COLUMN_TITLE);
+                int id = results.getInt(Database.COLUMN_ID);
+                boolean borrowStatus = results.getBoolean(String.valueOf(Database.COLUMN_BORROWED));
+                if (fetchedTitle.equalsIgnoreCase(title)) {
+                    bookFound = true;
+                    // Once the book is borrowed it will change the borrow status.
+                    PreparedStatement updateStatement = conn.prepareStatement("UPDATE " + Database.TABLE_BOOKS + " SET " + Database.COLUMN_BORROWED + " = ? WHERE " + Database.COLUMN_ID + " = ?");
+                    updateStatement.setBoolean(1, true);
+                    updateStatement.setInt(2, id);
+                    updateStatement.executeUpdate();
+                    if (!borrowStatus) {
+                        borrowResultLabel.setText("Book borrowed: " + title + " by " + borrowerName);
+                        
+                    } else {
+                        borrowResultLabel.setText("Book already borrowed.");
+                    }
+                    break; // Exit the loop once the book is found
+                }
+            }
+
+            if (!bookFound) {
+                borrowResultLabel.setText("Book not found.");
+            }
+
+            results.close();
+            conn.close();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
+
     }
     private void returnBook() {
         String title = returnTextField.getText();
