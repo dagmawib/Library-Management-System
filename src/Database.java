@@ -26,16 +26,16 @@ public class Database {
                     COLUMN_BORROWED + " BOOLEAN NOT NULL" +
                     ")"
             );
-            statement.execute("INSERT INTO books VALUES(1, 'Book1', 'Author1', " + COLUMN_BORROWED_TRUE + ")");
+            statement.execute("INSERT INTO books VALUES(1, 'Book1', 'Author1', " + COLUMN_BORROWED_FALSE + ")");
             statement.execute ("INSERT INTO books VALUES(2, 'Book2', 'Author2', " + COLUMN_BORROWED_FALSE + ")");
             statement.execute("INSERT INTO books VALUES(3, 'Book3', 'Author3', "  + COLUMN_BORROWED_FALSE + ")");
-            statement.execute("INSERT INTO books VALUES(4, 'Book4', 'Author4', " + COLUMN_BORROWED_TRUE + ")");
+            statement.execute("INSERT INTO books VALUES(4, 'Book4', 'Author4', " + COLUMN_BORROWED_FALSE + ")");
             statement.execute("INSERT INTO books VALUES(5, 'Book5', 'Author5', "  + COLUMN_BORROWED_FALSE + ")");
-            statement.execute("INSERT INTO books VALUES(6, 'Book6', 'Author6', " + COLUMN_BORROWED_TRUE + ")");
-            statement.execute("INSERT INTO books VALUES(7, 'Book7', 'Author7', " + COLUMN_BORROWED_TRUE + ")");
+            statement.execute("INSERT INTO books VALUES(6, 'Book6', 'Author6', " + COLUMN_BORROWED_FALSE + ")");
+            statement.execute("INSERT INTO books VALUES(7, 'Book7', 'Author7', " + COLUMN_BORROWED_FALSE + ")");
             statement.execute("INSERT INTO books VALUES(8, 'Book8', 'Author8', "  + COLUMN_BORROWED_FALSE + ")");
             statement.execute("INSERT INTO books VALUES(9, 'Book9', 'Author9', " + COLUMN_BORROWED_TRUE + ")");
-            statement.execute("INSERT INTO books VALUES(10, 'Book10', 'Author10', "  + COLUMN_BORROWED_FALSE + ")");
+            statement.execute("INSERT INTO books VALUES(10, 'Book10', 'Author10', "  + COLUMN_BORROWED_TRUE + ")");
             ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_BOOKS);
             while (results.next()) {
                 int id = results.getInt(COLUMN_ID);
