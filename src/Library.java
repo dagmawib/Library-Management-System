@@ -28,9 +28,7 @@ public class Library {
     public void borrowBook(String book) {
         // Simulate updating the book's borrowed status
 
-//        if (book != null && !book.isBorrowed()) {
-//            book.setBorrowed(true);
-//        }
+
     }
     public void returnBook(AddBook book) {
         // Simulate updating the book's borrowed status

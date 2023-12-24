@@ -155,7 +155,7 @@ public class MainGUI {
                         }
 
                         results.close();
-                        conn.close();
+                        //conn.close();
                     }
 
                     // Show the list of books directly in the GUI
@@ -288,7 +288,7 @@ public class MainGUI {
             }
 
             results.close();
-            conn.close();
+          //  conn.close();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -330,7 +330,7 @@ public class MainGUI {
             }
 
             results.close();
-            conn.close();
+           // conn.close();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

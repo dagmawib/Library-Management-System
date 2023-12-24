@@ -15,7 +15,7 @@ public class LoginPage implements ActionListener {
     JLabel userPasswordLabel = new JLabel("Password:");
     JLabel messageLabel = new JLabel();
     JLabel logoLabel;  // New JLabel for the logo
-   // HashMap<String, String> logininfo = new HashMap<>();
+
    HashMap<String, String> logininfo = new HashMap<>();
 
 
