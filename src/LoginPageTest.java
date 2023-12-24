@@ -8,6 +8,7 @@ public class LoginPageTest {
 
     @Test
     public void loginPageVerification() {
+        //instantiation of hashmap
         HashMap<String, String> loginInfoOriginals = new HashMap<>();
         //insert into loginInfoOriginals
         loginInfoOriginals.put("username", "Anan");
