@@ -1,5 +1,5 @@
 public class LibraryManagementSystem {
-    private Library library;
+    public Library library;
     public LibraryManagementSystem() {
         this.library = new Library();
     }

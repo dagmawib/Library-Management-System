@@ -4,18 +4,9 @@ public class Library {
     public List<AddBook> books;
     public Library() {
         this.books = new ArrayList<>();
-//        initializeBooks();
+
     }
-//    private void initializeBooks() {
-//        // Simulate adding books to the library
-//        books.add(new AddBook("Book1", "Author1"));
-//        books.add(new AddBook("Book2", "Author2"));
-//        books.add(new AddBook("Book3", "Author3"));
-//        books.add(new AddBook("Book4", "Author4"));
-//        books.add(new AddBook("Book5", "Author5"));
-//        books.add(new AddBook("Book6", "Author6"));
-//        books.add(new AddBook("Book7", "Author7"));
-//    }
+
     public AddBook searchBook(String title) {
         // Simulate searching the library for the book
         for (AddBook book : books) {
@@ -36,6 +27,7 @@ public class Library {
             book.setBorrowed(false);
         }
     }
+//    Defines a method getAllAvailableBooks that returns a list of all available (not borrowed) books in the librar
     public List<AddBook> getAllAvailableBooks() {
         List<AddBook> availableBooks = new ArrayList<>();
         for (AddBook book : books) {
@@ -45,6 +37,7 @@ public class Library {
         }
         return availableBooks;
     }
+//    Defines a method getAllBookTitles that returns an array of all book titles in the library.
     public String[] getAllBookTitles() {
         String[] titles = new String[books.size()];
         for (int i = 0; i < books.size(); i++) {
