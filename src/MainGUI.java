@@ -248,15 +248,42 @@ public class MainGUI {
         return gapPanel;
     }
 //    Retrieves the title from the search text field, calls searchBook method in the library, and updates the search result label
-    private void searchBook() {
-        String title = searchTextField.getText();
-        AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
-        if (book != null) {
-            searchResultLabel.setText("Book found: " + book.getTitle());
-        } else {
+private void searchBook() {
+    try (Connection conn = getConnection(Database.CONNECTION_STRING)) {
+        String titleToSearch = searchTextField.getText();
+
+        PreparedStatement statement = conn.prepareStatement("SELECT * FROM " + Database.TABLE_BOOKS + " WHERE " + Database.COLUMN_TITLE + " = ?");
+        statement.setString(1, titleToSearch);
+
+        ResultSet results = statement.executeQuery();
+
+        boolean bookFound = false;
+
+        while (results.next()) {
+            String fetchedTitle = results.getString(Database.COLUMN_TITLE);
+            boolean borrowStatus = results.getBoolean(String.valueOf(Database.COLUMN_BORROWED));
+
+            if (titleToSearch.equals(fetchedTitle)) {
+                bookFound = true;
+                if (borrowStatus) {
+                    searchResultLabel.setText("Book: " + fetchedTitle + " is already borrowed.");
+                } else {
+                    searchResultLabel.setText("Book found: " + fetchedTitle);
+                }
+                break;
+            }
+        }
+
+        if (!bookFound) {
             searchResultLabel.setText("Book not found.");
         }
+
+        results.close();
+    } catch (SQLException ex) {
+        throw new RuntimeException(ex);
     }
+}
+
     private void addBook() {
         // Assuming addBookTextField and authorTextField are JTextField components in your GUI
         String title = addBookTextField.getText();
