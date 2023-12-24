@@ -13,6 +13,7 @@ import static java.sql.DriverManager.getConnection;
 
 
 public class MainGUI {
+//    Declares instance variables for the GUI components and a LibraryManagementSystem instance.
     public JFrame frame;
     public JTextField searchTextField;
     public JLabel searchResultLabel;
@@ -30,6 +31,7 @@ public class MainGUI {
     public LibraryManagementSystem libraryManagementSystem;
 
     MainGUI(String userID) {
+//        Initializes the LibraryManagementSystem, creates and configures the main JFrame.
         libraryManagementSystem = new LibraryManagementSystem();
         frame = new JFrame("Library Management System");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,21 +43,26 @@ public class MainGUI {
         frame.setVisible(true);
         frame.getContentPane().setBackground(new Color(0xF0F0F0)); // Light Gray background
 
+//        Creates a main panel with a BorderLayout and sets its background color.
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0xF0F0F0)); // Light Gray background
 
+//        Creates a panel for searching with specified background color and an empty border.
         JPanel searchPanel = new JPanel();
         searchPanel.setBackground(new Color(0xF0F0F0)); // Light Gray background
         searchPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
 
+//        Creates a label for searching with an increased font size.
         JLabel searchLabel = new JLabel("Search Book:");
         Font labelFont = new Font(searchLabel.getFont().getName(), Font.BOLD, searchLabel.getFont().getSize() * 2);
         searchLabel.setFont(labelFont); // Increase font size
         searchPanel.add(searchLabel);
 
+//        Creates a text field with a placeholder and adds it to the search panel.
         searchTextField = createPlaceholderTextField("Enter book title");
         searchPanel.add(searchTextField);
 
+//        Creates a search button with an action listener and adds it to the search panel.
         JButton searchButton = new JButton("Search");
         searchButton.addActionListener(e -> searchBook()); // lambda expression
         searchButton.setBackground(new Color(0x4CAF50)); // Green button
@@ -63,13 +70,17 @@ public class MainGUI {
         searchButton.setFocusPainted(false); // No focus border
         searchPanel.add(searchButton);
 
+//        Creates a label for displaying search results and adds it to the search panel.
         searchResultLabel = new JLabel();
         searchResultLabel.setForeground(new Color(0x4CAF50)); // Green text
         searchPanel.add(searchResultLabel);
 
+//        Creates a panel for borrowing with specified background color and an empty border.
         JPanel borrowPanel = new JPanel();
         borrowPanel.setBackground(new Color(0xF0F0F0)); // Light Gray background
         borrowPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
+
+//        Creates labels and text fields for borrowing and adds them to the borrow panel.
         JLabel borrowLabel = new JLabel("Borrow Book:");
         borrowLabel.setFont(labelFont); // Use the same font as the label
         borrowPanel.add(borrowLabel);
@@ -85,6 +96,7 @@ public class MainGUI {
         borrowerNameTextField = createPlaceholderTextField("Enter borrower's name");
         borrowPanel.add(borrowerNameTextField);
 
+//        Creates a borrow button with an action listener and a label for displaying borrow results, and adds them to the borrow panel
         JButton borrowButton = new JButton("Borrow");
         borrowButton.addActionListener(e -> borrowBook()); //lambda expression
         borrowButton.setBackground(new Color(0x2196F3)); // Blue button
@@ -99,6 +111,8 @@ public class MainGUI {
         JPanel returnPanel = new JPanel();
         returnPanel.setBackground(new Color(0xF0F0F0)); // Light Gray background
         returnPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add an empty border
+
+//        Creates labels and text fields for returning and adds them to the return panel.
         JLabel returnLabel = new JLabel("Return Book:");
         returnLabel.setFont(labelFont); // Use the same font as the label
         returnPanel.add(returnLabel);
@@ -110,10 +124,10 @@ public class MainGUI {
         JLabel returnerNameLabel = new JLabel("Returner Name:");
         returnerNameLabel.setFont(labelFont); // Use the same font as the label
         returnPanel.add(returnerNameLabel);
-
         returnerNameTextField = createPlaceholderTextField("Enter returner's name");
         returnPanel.add(returnerNameTextField);
 
+//        Creates a return button with an action listener and a label for displaying return results, and adds them to the return panel.
         JButton returnButton = new JButton("Return");
         returnButton.addActionListener(e -> returnBook()); //lambda expression
         returnButton.setBackground(new Color(0xFF5722)); // Deep Orange button
@@ -125,11 +139,12 @@ public class MainGUI {
         returnResultLabel.setForeground(new Color(0xFF5722)); // Deep Orange text
         returnPanel.add(returnResultLabel);
 
+//        Adds the search, borrow, and return panels to the main panel with specified border layout positions.
         panel.add(searchPanel, BorderLayout.NORTH);
         panel.add(borrowPanel, BorderLayout.CENTER);
         panel.add(returnPanel, BorderLayout.SOUTH);
 
-
+//        Creates a button for viewing all books with an action listener and adds it to the main panel.
         JButton viewAllBooksButton = new JButton("View All Books");
         viewAllBooksButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -174,12 +189,11 @@ public class MainGUI {
         viewAllBooksButton.setFocusPainted(false); // No focus border
         panel.add(viewAllBooksButton, BorderLayout.EAST);
 
-        // Center components when the window is maximized
+//        Sets the frame layout, configures the layout constraints, and adds the main panel to the frame.
         frame.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-
         frame.add(panel, gbc);
         frame.getContentPane().add(panel);
         frame.pack();
@@ -187,6 +201,8 @@ public class MainGUI {
 
         //instance of iDandPasswords class
         IDandPasswords iDandPasswords = new IDandPasswords();
+
+//        Creates a logout button with an action listener and adds it to the return panel.
         JButton logoutButton = new JButton("Logout"); // Create the logout button
         logoutButton.addActionListener(e -> {
             frame.dispose();
@@ -195,14 +211,12 @@ public class MainGUI {
             //  HashMap<String, String> loginInfoOriginal = iDandPasswords.getLoginInfo();
             @SuppressWarnings("unchecked")
             HashMap<String, String> loginInfoOriginal = (HashMap<String, String>) iDandPasswords.getLoginInfo();
-
-
             new LoginPage(loginInfoOriginal);
         });
-
         returnPanel.add(logoutButton);
     }
-    private JTextField createPlaceholderTextField(String placeholder) {
+//    Creates a text field with a placeholder text and a focus listener to show/hide the placeholder.
+   private JTextField createPlaceholderTextField(String placeholder) {
         JTextField textField = new JTextField(20);
         textField.setBackground(new Color(0xFFFFFF)); // White background
         textField.setPreferredSize(new Dimension(200, 30)); // Increase size
@@ -226,12 +240,14 @@ public class MainGUI {
         });
         return textField;
     }
+//    Creates a transparent panel used as a vertical gap in the layout.
     public JPanel createVerticalGap() {
         JPanel gapPanel = new JPanel();
         gapPanel.setOpaque(false); // Make the panel transparent
         gapPanel.setPreferredSize(new Dimension(0, 20)); // Set the vertical gap size
         return gapPanel;
     }
+//    Retrieves the title from the search text field, calls searchBook method in the library, and updates the search result label
     private void searchBook() {
         String title = searchTextField.getText();
         AddBook book = libraryManagementSystem.getLibrary().searchBook(title);
