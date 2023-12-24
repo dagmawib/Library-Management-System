@@ -22,6 +22,8 @@ Search and Cataloging: Search books by title and author.
 
 #### Ensure Java Development Kit (JDK) is installed.
 
+#### Add Junit libraries to your IDE from the "lib" folder 
+
 ### Run the Application:
 #### Compile the Java files using a Java compiler (javac).
 
